@@ -1,0 +1,17 @@
+@page
+@model Demo.VueVersionModel
+@{
+    ViewData["Title"] = "FileSystem VueVersion .. !!!!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>FileSystem VueVersion .. !!!!</h1>
+
+@section Scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="~/SInjulMSBH/filesystem.vue.js" asp-append-version="true"></script>
+}

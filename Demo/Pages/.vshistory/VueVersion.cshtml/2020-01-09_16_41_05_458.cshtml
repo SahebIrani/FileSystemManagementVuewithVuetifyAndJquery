@@ -1,0 +1,165 @@
+@page
+@model VueVersionModel
+@{
+    ViewData["Title"] = "FileSystem VueVersion .. !!!!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<script type="text/x-template" id="app-template">
+
+    <v-app fill-height>
+
+        <v-content>
+
+            <v-toolbar color="blue darken-3">
+
+                <v-app-bar app dark fixed>
+
+                    <v-toolbar-title class="ml-0 pl-3">
+
+                        <span class="title ml-3 mr-5 hidden-sm-and-down">
+
+                            FileSystem With Vue and Vuetify .. !!!!
+
+                            <span class="font-weight-light">
+                                <a href="https://SinjulMSBH.ir"
+                                   class="text-light btn btn-link text-decoration-none" target="_blank">
+                                    by : SinjulMSBH
+                                </a>
+                            </span>
+                        </span>
+
+                    </v-toolbar-title>
+
+                    <v-spacer></v-spacer>
+
+                    <v-text-field v-if="hasItems" flat class="mr-2 hidden-sm-and-down" style="margin-top:32px !important;"
+                                  solo-inverted v-model="searchTerm" label="Search any directory below">
+                    </v-text-field>
+
+                    <v-btn rounded outlined color="#fff" dark href="/" class="text-decoration-none">
+                        <v-icon>SinjulMSBH</v-icon>
+                    </v-btn>
+
+                </v-app-bar>
+
+            </v-toolbar>
+
+
+            <v-container>
+
+                <v-layout column>
+
+                    <v-flex>
+
+                        <v-flex>
+                            <v-flex d-flex>
+                                <v-layout justify-center mb-1>
+                                    <label class="title font-weight-regular text-dark">Search in which directory .. !!!!</label>
+                                </v-layout>
+
+                            </v-flex>
+                            <v-text-field :loading="showLoading" flat solo-inverted v-model="directory" label="Enter a directory" @@keyup.enter="checkDirectoryExists(directory)">
+                                <template v-slot:progress>
+                                    <v-progress-linear v-if="showLoading"
+                                                       :indeterminate="true"
+                                                       height="3">
+                                    </v-progress-linear>
+                                </template>
+                            </v-text-field>
+                        </v-flex>
+
+                        <v-card v-if="hasItems">
+                            <v-card-text>
+                                <v-treeview hoverable
+                                            return-object
+                                            :search="searchTerm"
+                                            :active.sync="active"
+                                            :load-children="fetchChildrens"
+                                            transition :items="items"
+                                            activatable
+                                            item-key="name"
+                                            open-on-click>
+                                    <template v-slot:prepend="{ item, open }">
+
+                                        <i v-if="item.hasChilds" :class="open ? 'far fa-folder-open' :'fas fa-folder'"></i>
+                                        <span v-else> <i :class="item.icon"></i></span>
+
+                                    </template>
+                                </v-treeview>
+                            </v-card-text>
+                        </v-card>
+
+                        <v-flex v-else d-flex>
+                            <v-layout justify-center>
+                                <img class="img-fluid img-thumbnail"
+                                     src="https://www.opalaska.com/images/img-medical-records.jpg" alt="Directory not found" />
+                            </v-layout>
+                        </v-flex>
+
+                    </v-flex>
+
+                </v-layout>
+
+                <v-layout v-if="hasItems">
+                    <div class="ml-3 pt-5">
+                        <v-flex row>
+                            <label> Found : <strong style="color:red"> {{quantityDirectories}} </strong> </label>
+                            <label>
+                                directories in  <v-chip small><strong> {{ directory }}</strong></v-chip>
+                            </label>
+                        </v-flex>
+                    </div>
+                </v-layout>
+
+                <v-layout column v-if="selected">
+                    <div>
+                        <div class="text-xs-center">
+                            <v-btn rounded outlined large color="primary" dark>
+                                <v-icon left>cloud_download</v-icon>
+                                Download now !
+                            </v-btn>
+                        </div>
+                    </div>
+                </v-layout>
+
+                <v-snackbar v-model="snackbar" color="red">
+                    Directory not found!
+                </v-snackbar>
+
+            </v-container>
+
+
+        </v-content>
+
+    </v-app>
+
+</script>
+
+<article id="app"></article>
+
+
+@section Styles{
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="https://kit.fontawesome.com/7d3ee69c48.js" crossorigin="anonymous"></script>
+}
+
+@section Scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="~/SinjulMSBH/filesystem.vue.js" asp-append-version="true"></script>
+
+}

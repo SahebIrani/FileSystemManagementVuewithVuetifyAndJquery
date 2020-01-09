@@ -1,0 +1,55 @@
+@page
+@model VueVersionModel
+@{
+    ViewData["Title"] = "FileSystem VueVersion .. !!!!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>FileSystem VueVersion .. !!!!</h1>
+
+<article id="app">
+
+    <div v-if="hasItems">
+        <div>
+            <div hoverable
+                 return-object
+                 :search="searchTerm"
+                 :active.sync="active"
+                 :load-children="fetchChildrens"
+                 transition :items="items"
+                 activatable
+                 item-key="name"
+                 open-on-click>
+                <template v-slot:prepend="{ item, open }">
+                    <i v-if="item.hasChilds" :class="open ? 'far fa-folder-open' :'fas fa-folder'"></i>
+                    <span v-else> <i :class="item.icon"></i></span>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <div v-else d-flex>
+        <div justify-center>
+            <img src="https://hallohijab.com/themes/pink/img/ic_notfound.png" alt="Directory not found" />
+        </div>
+    </div>
+
+</article>
+
+@section Styles{
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons">
+
+    <script src="https://kit.fontawesome.com/7d3ee69c48.js" crossorigin="anonymous"></script>
+
+}
+
+@section Scripts{
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+
+    <script src="~/SinjulMSBH/filesystem.vue.js" asp-append-version="true"></script>
+
+}

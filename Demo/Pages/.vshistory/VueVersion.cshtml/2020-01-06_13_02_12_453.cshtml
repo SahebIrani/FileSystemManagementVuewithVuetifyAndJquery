@@ -1,0 +1,128 @@
+@page
+@model Demo.VueVersionModel
+@{
+    ViewData["Title"] = "FileSystem VueVersion .. !!!!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>FileSystem VueVersion .. !!!!</h1>
+
+<article id="app">
+    <v-app fill-height>
+        <v-content>
+            <v-toolbar color="blue darken-3" dark app fixed>
+                <v-toolbar-title class="ml-0 pl-3">
+                    <span class="title ml-3 mr-5 hidden-sm-and-down">
+                        FileSystem With Vue and Vuetify&nbsp;<span class="font-weight-light">
+                            <a href="https://www.linkedin.com/in/lucas-juliano-24a063a2/" style="text-decoration:none;color:#fff" target="_blank">
+                                by :
+                                julianodev
+                            </a>
+                        </span>
+                    </span>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+
+                <v-text-field v-if="hasItems" flat class="pt-2 hidden-sm-and-down" solo-inverted v-model="searchTerm" label="Search any directory below"></v-text-field>
+
+                <v-btn round outline color="#fff" dark href="/">
+                    <v-icon left>swap_horiz</v-icon>
+                    Change MVC
+                </v-btn>
+            </v-toolbar>
+
+            <v-container grid-list-xl>
+                <v-layout column>
+                    <v-flex>
+                        <v-flex>
+                            <v-flex d-flex>
+                                <v-layout justify-center mb-1>
+                                    <label class="title font-weight-regular">Search in which directory</label>
+                                </v-layout>
+
+                            </v-flex>
+                            <v-text-field :loading="showLoading" flat solo-inverted v-model="directory" label="Enter a directory" @@keyup.enter="checkDirectoryExists(directory)">
+                                <template v-slot:progress>
+                                    <v-progress-linear v-if="showLoading"
+                                                       :indeterminate="true"
+                                                       height="3">
+                                    </v-progress-linear>
+                                </template>
+                            </v-text-field>
+                        </v-flex>
+                        <v-card v-if="hasItems">
+                            <v-card-text>
+                                <v-treeview hoverable
+                                            return-object
+                                            :search="searchTerm"
+                                            :active.sync="active"
+                                            :load-children="fetchChildrens"
+                                            transition :items="items"
+                                            activatable
+                                            item-key="name"
+                                            open-on-click>
+                                    <template v-slot:prepend="{ item, open }">
+
+                                        <i v-if="item.hasChilds" :class="open ? 'far fa-folder-open' :'fas fa-folder'"></i>
+                                        <span v-else> <i :class="item.icon"></i></span>
+                                    </template>
+                                </v-treeview>
+                            </v-card-text>
+                        </v-card>
+                        <v-flex v-else d-flex>
+                            <v-layout justify-center>
+                                <img src="https://hallohijab.com/themes/pink/img/ic_notfound.png" alt="Directory not found" />
+                            </v-layout>
+                        </v-flex>
+
+                    </v-flex>
+                </v-layout>
+
+                <v-layout v-if="hasItems">
+                    <div class="ml-3">
+                        <v-flex row>
+                            <label> Found : <strong style="color:red"> {{quantityDirectories}} </strong> </label>
+                            <label>
+                                directories in  <v-chip small><strong> {{ directory }}</strong></v-chip>
+                            </label>
+                        </v-flex>
+                    </div>
+                </v-layout>
+
+                <v-layout column v-if="selected">
+                    <div>
+                        <div class="text-xs-center">
+                            <!--  <v-btn round outline large color="primary" dark>Preview</v-btn> -->
+                            <v-btn round outline large color="primary" dark>
+                                <v-icon left>cloud_download</v-icon>
+                                Download now !
+                            </v-btn>
+                        </div>
+                    </div>
+                </v-layout>
+
+                <v-snackbar v-model="snackbar" color="red">
+                    Directory not found!
+                </v-snackbar>
+            </v-container>
+        </v-content>
+    </v-app>
+</article>
+
+@section Styles{
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons">
+
+    <script src="https://kit.fontawesome.com/7d3ee69c48.js" crossorigin="anonymous"></script>
+
+}
+
+@section Scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="~/SInjulMSBH/filesystem.vue.js" asp-append-version="true"></script>
+
+}

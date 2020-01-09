@@ -1,0 +1,50 @@
+@page
+@model jQueryVersionModel
+@{
+    ViewData["Title"] = "FileSystem jQueryVersion .. !!!!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>FileSystem jQueryVersion .. !!!!</h1>
+
+<article class="row">
+
+    <section class="col-md-6"
+             fsl-filesystem="dir1"
+             fsl-filesystem-full-name="c:\dev"
+             fsl-filesystem-full-height="310">
+    </section>
+
+    <section class="col-md-6"
+             fsl-filesystem="dir2"
+             fsl-filesystem-full-name="c:\dev"
+             fsl-filesystem-full-height="620">
+    </section>
+
+
+    @*<div class="col-md-6" style="overflow-y:auto;overflow-x:hidden;height:310px">
+            <div id="dir10"></div>
+            <script type="text/javascript">$(document).ready(function () { fileSystem.build('c:\\dev', 'dir1', 0, 0); });</script>
+        </div>
+
+        <div class="col-md-6" style="overflow-y:auto;overflow-x:hidden;height:620px">
+            <div id="dir20"></div>
+            <script type="text/javascript">$(document).ready(function () { fileSystem.build('c:\\dev', 'dir2', 0, 0); });</script>
+        </div>
+
+        <button id="btn-run" class="btn btn-info">button</button>*@
+
+</article>
+
+
+@section Styles{
+
+    <script src="https://kit.fontawesome.com/7d3ee69c48.js" crossorigin="anonymous"></script>
+
+}
+
+@section Scripts{
+
+    <script src="~/SinjulMSBH/filesystem.jquery.js" asp-append-version="true"></script>
+
+}

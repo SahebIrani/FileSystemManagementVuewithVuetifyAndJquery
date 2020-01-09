@@ -1,0 +1,41 @@
+@page
+@model Demo.jQueryVersionModel
+@{
+    ViewData["Title"] = "FileSystem jQueryVersion .. !!!!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>FileSystem jQueryVersion .. !!!!</h1>
+
+<div class="text-center mb-5">
+    @Html.ActionLink("Vue Version", "Vue", "Home", null, new { @class = "btn btn-primary" })
+</div>
+
+<article class="row">
+
+    <section class="col-md-6"
+         fsl-filesystem="dir1"
+         fsl-filesystem-full-name="c:\dev"
+         fsl-filesystem-full-height="310">
+    </section>
+
+    <section class="col-md-6"
+         fsl-filesystem="dir2"
+         fsl-filesystem-full-name="c:\dev"
+         fsl-filesystem-full-height="530">
+    </section>
+
+</article>
+
+
+@section Styles{
+
+    <script src="https://kit.fontawesome.com/7d3ee69c48.js" crossorigin="anonymous"></script>
+
+}
+
+@section Scripts{
+
+    <script src="~/SInjulMSBH/filesystem.jquery.js" asp-append-version="true"></script>
+
+}
